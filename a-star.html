@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritmo A* (A Estrella)</title>
+</head>
+<body>
+    <h1>Algoritmo A* (A Estrella)</h1>
+    <p>Ingresa una lista de números separados por comas:</p>
+    <input type="text" id="inputNumbers">
+    <button onclick="calcularRutaMasCorta()">Calcular</button>
+    <p id="resultado"></p>
+
+    <script>
+        function aStar(graph, startNode, endNode) {
+            // Implementa aquí el algoritmo A*
+            // ...
+        }
+
+        function calcularRutaMasCorta() {
+            const inputElement = document.getElementById("inputNumbers");
+            const inputText = inputElement.value.trim();
+            const graph = parseInput(inputText);
+
+            const startNode = "A"; // Cambia este valor al nodo de origen deseado
+            const endNode = "B"; // Cambia este valor al nodo de destino deseado
+
+            const shortestPath = aStar(graph, startNode, endNode);
+
+            const resultadoElement = document.getElementById("resultado");
+            resultadoElement.textContent = "Ruta más corta desde " + startNode + " hasta " + endNode + ": " + shortestPath.join(" -> ");
+        }
+
+        function parseInput(inputText) {
+            // Parsea la entrada y crea el grafo ponderado
+            // Ejemplo: "A-B:5,B-C:3,A-C:2" se convierte en { A: { B: 5, C: 2 }, B: { C: 3 } }
+            const graph = {};
+            const edges = inputText.split(",");
+            for (const edge of edges) {
+                const [from, to, weight] = edge.split(":");
+                if (!graph[from]) graph[from] = {};
+                graph[from][to] = parseInt(weight);
+            }
+            return graph;
+        }
+    </script>
+</body>
+</html>

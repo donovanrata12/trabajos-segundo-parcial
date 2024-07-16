@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Problema de la Mochila</title>
+</head>
+<body>
+    <h1>Problema de la Mochila</h1>
+    <p>Ingresa los pesos y valores de los elementos (separados por comas):</p>
+    <input type="text" id="inputWeightsValues">
+    <p>Capacidad máxima de la mochila:</p>
+    <input type="number" id="inputCapacity">
+    <button onclick="solveKnapsack()">Calcular</button>
+    <p id="resultado"></p>
+
+    <script>
+        function solveKnapsack() {
+            const inputWeightsValues = document.getElementById("inputWeightsValues").value.trim();
+            const inputCapacity = parseInt(document.getElementById("inputCapacity").value);
+
+            const weightsValues = inputWeightsValues.split(",").map(Number);
+            const weights = weightsValues.filter((_, i) => i % 2 === 0);
+            const values = weightsValues.filter((_, i) => i % 2 === 1);
+
+            const n = weights.length;
+            const dp = Array.from({ length: n + 1 }, () => Array(inputCapacity + 1).fill(0));
+
+            for (let i = 1; i <= n; i++) {
+                for (let w = 1; w <= inputCapacity; w++) {
+                    if (weights[i - 1] <= w) {
+                        dp[i][w] = Math.max(dp[i - 1][w], values[i - 1] + dp[i - 1][w - weights[i - 1]]);
+                    } else {
+                        dp[i][w] = dp[i - 1][w];
+                    }
+                }
+            }
+
+            const selectedItems = [];
+            let i = n;
+            let w = inputCapacity;
+            while (i > 0 && w > 0) {
+                if (dp[i][w] !== dp[i - 1][w]) {
+                    selectedItems.push(i);
+                    w -= weights[i - 1];
+                }
+                i--;
+            }
+
+            const resultadoElement = document.getElementById("resultado");
+            resultadoElement.textContent = "Elementos seleccionados: " + selectedItems.join(", ");
+        }
+    </script>
+</body>
+</html>

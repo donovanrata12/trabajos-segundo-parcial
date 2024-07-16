@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Búsqueda en Profundidad (DFS)</title>
+</head>
+<body>
+    <h1>Búsqueda en Profundidad (DFS)</h1>
+    <p>Ingresa una lista de números separados por comas:</p>
+    <input type="text" id="inputNumbers">
+    <button onclick="dfs()">Buscar</button>
+    <p id="resultado"></p>
+
+    <script>
+        function dfs() {
+            const inputElement = document.getElementById("inputNumbers");
+            const inputText = inputElement.value.trim();
+            const numeros = inputText.split(",").map(Number);
+
+            // Implementa aquí tu algoritmo de búsqueda en profundidad (DFS)
+            // ...
+
+            // Muestra los resultados (aquí solo se muestra un ejemplo)
+            const resultadoElement = document.getElementById("resultado");
+            resultadoElement.textContent = "Resultados de DFS: " + JSON.stringify(numeros);
+        }
+    </script>
+</body>
+</html>

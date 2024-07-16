@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barra de Búsqueda</title>
+    <style>
+        /* Estilos CSS para la barra de búsqueda */
+        .search-box {
+            text-align: center;
+            margin-top: 20px;
+        }
+        #search-input {
+            width: 300px;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Barra de Búsqueda</h1>
+    <div class="search-box">
+        <form method="get" id="search-form">
+            <input type="text" id="search-input" placeholder="Buscar">
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("search-form").addEventListener("submit", function (event) {
+            event.preventDefault(); // Evita que se recargue la página al enviar el formulario
+            const inputElement = document.getElementById("search-input");
+            const inputText = inputElement.value.trim();
+            const numeros = inputText.split(",").map(Number);
+
+            // Implementa aquí tu algoritmo de búsqueda (por ejemplo, búsqueda lineal o binaria)
+            // ...
+
+            // Muestra los resultados (aquí solo se muestra un ejemplo)
+            const resultado = buscarNumero(numeros, 10); // Ejemplo: busca el número 10
+            alert(`Resultado de búsqueda: ${resultado}`);
+        });
+
+        // Ejemplo de algoritmo de búsqueda (búsqueda lineal)
+        function buscarNumero(arr, target) {
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i] === target) {
+                    return `Encontrado en la posición ${i}`;
+                }
+            }
+            return "No encontrado";
+        }
+    </script>
+</body>
+</html>

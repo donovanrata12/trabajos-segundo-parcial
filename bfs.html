@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritmo de Búsqueda en Amplitud (BFS)</title>
+</head>
+<body>
+    <h1>Algoritmo de Búsqueda en Amplitud (BFS)</h1>
+    <p>Ingresa una lista de números separados por comas:</p>
+    <input type="text" id="inputNumbers">
+    <button onclick="calcularRutaMasCorta()">Calcular</button>
+    <p id="resultado"></p>
+
+    <script>
+        function bfs(graph, startNode) {
+            const visited = new Set();
+            const queue = [startNode];
+            visited.add(startNode);
+
+            while (queue.length > 0) {
+                const currentNode = queue.shift();
+                // Procesa el nodo actual (puedes mostrarlo o hacer lo que necesites)
+
+                for (const neighbor of graph[currentNode]) {
+                    if (!visited.has(neighbor)) {
+                        visited.add(neighbor);
+                        queue.push(neighbor);
+                    }
+                }
+            }
+        }
+
+        function calcularRutaMasCorta() {
+            const inputElement = document.getElementById("inputNumbers");
+            const inputText = inputElement.value.trim();
+            const graph = parseInput(inputText);
+
+            const startNode = "A"; // Cambia este valor al nodo de origen deseado
+
+            bfs(graph, startNode);
+
+            const resultadoElement = document.getElementById("resultado");
+            resultadoElement.textContent = "BFS completado. Puedes procesar los nodos visitados según tus necesidades.";
+        }
+
+        function parseInput(inputText) {
+            // Parsea la entrada y crea el grafo
+            const graph = {};
+            const edges = inputText.split(",");
+            for (const edge of edges) {
+                const [from, to] = edge.split(":");
+                if (!graph[from]) graph[from] = [];
+                graph[from].push(to);
+            }
+            return graph;
+        }
+    </script>
+</body>
+</html>

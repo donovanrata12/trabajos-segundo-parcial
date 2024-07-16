@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordenamiento de Burbuja</title>
+</head>
+<body>
+    <h1>Ordenamiento de Burbuja</h1>
+    <p>Ingresa una lista de números separados por comas:</p>
+    <input type="text" id="inputNumbers">
+    <button onclick="ordenarNumeros()">Ordenar</button>
+    <p id="resultado"></p>
+
+    <script>
+        function bubbleSort(arr) {
+            const n = arr.length;
+            for (let i = 0; i < n - 1; i++) {
+                for (let j = 0; j < n - i - 1; j++) {
+                    if (arr[j] > arr[j + 1]) {
+                        // Intercambiar elementos
+                        const temp = arr[j];
+                        arr[j] = arr[j + 1];
+                        arr[j + 1] = temp;
+                    }
+                }
+            }
+            return arr;
+        }
+
+        function ordenarNumeros() {
+            const inputElement = document.getElementById("inputNumbers");
+            const inputText = inputElement.value.trim();
+            const numeros = inputText.split(",").map(Number);
+
+            const numerosOrdenados = bubbleSort(numeros);
+
+            const resultadoElement = document.getElementById("resultado");
+            resultadoElement.textContent = "Números ordenados: " + numerosOrdenados.join(", ");
+        }
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barra de Búsqueda</title>
+    <style>
+        /* Estilos CSS para la barra de búsqueda */
+        .search-box {
+            text-align: center;
+            margin-top: 20px;
+        }
+        #search-input {
+            width: 300px;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Barra de Búsqueda</h1>
+    <div class="search-box">
+        <form method="get" id="search-form">
+            <input type="text" id="search-input" placeholder="Buscar">
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("search-form").addEventListener("submit", function (event) {
+            event.preventDefault(); // Evita que se recargue la página al enviar el formulario
+            const inputElement = document.getElementById("search-input");
+            const inputText = inputElement.value.trim();
+            const numeros = inputText.split(",").map(Number);
+
+            // Implementa aquí tu algoritmo de búsqueda (por ejemplo, búsqueda lineal o binaria)
+            // ...
+
+            // Muestra los resultados (aquí solo se muestra un ejemplo)
+            const resultado = buscarNumero(numeros, 10); // Ejemplo: busca el número 10
+            alert(`Resultado de búsqueda: ${resultado}`);
+        });
+
+        // Ejemplo de algoritmo de búsqueda (búsqueda lineal)
+        function buscarNumero(arr, target) {
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i] === target) {
+                    return `Encontrado en la posición ${i}`;
+                }
+            }
+            return "No encontrado";
+        }
+    </script>
+</body>
+</html>

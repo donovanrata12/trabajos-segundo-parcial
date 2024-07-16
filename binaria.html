@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Búsqueda Binaria</title>
+</head>
+<body>
+    <h1>Búsqueda Binaria</h1>
+    <p>Ingresa una lista de números separados por comas:</p>
+    <input type="text" id="inputNumbers">
+    <button onclick="buscarNumero()">Buscar</button>
+    <p id="resultado"></p>
+
+    <script>
+        function binarySearch(arr, target) {
+            let left = 0;
+            let right = arr.length - 1;
+
+            while (left <= right) {
+                const mid = Math.floor((left + right) / 2);
+
+                if (arr[mid] === target) {
+                    return mid;
+                } else if (arr[mid] < target) {
+                    left = mid + 1;
+                } else {
+                    right = mid - 1;
+                }
+            }
+
+            return -1; // Elemento no encontrado
+        }
+
+        function buscarNumero() {
+            const inputElement = document.getElementById("inputNumbers");
+            const inputText = inputElement.value.trim();
+            const numeros = inputText.split(",").map(Number);
+
+            const numeroBuscado = 10; // Cambia este valor al número que desees buscar
+
+            const indiceEncontrado = binarySearch(numeros, numeroBuscado);
+
+            const resultadoElement = document.getElementById("resultado");
+            if (indiceEncontrado !== -1) {
+                resultadoElement.textContent = `El valor ${numeroBuscado} está en el índice ${indiceEncontrado}.`;
+            } else {
+                resultadoElement.textContent = `El valor ${numeroBuscado} no se encuentra en la lista.`;
+            }
+        }
+    </script>
+</body>
+</html>

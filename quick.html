@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordenamiento QuickSort</title>
+</head>
+<body>
+    <h1>Ordenamiento QuickSort</h1>
+    <p>Ingresa una lista de números separados por comas:</p>
+    <input type="text" id="inputNumbers">
+    <button onclick="ordenarNumeros()">Ordenar</button>
+    <p id="resultado"></p>
+
+    <script>
+        function quickSort(input) {
+            if (input.length === 0) return []; // Caso base
+            const pivot = input[0];
+            const arraySmaller = [];
+            const arrayBigger = [];
+
+            for (let i = 1; i < input.length; i++) {
+                if (input[i] < pivot) {
+                    arraySmaller.push(input[i]);
+                } else {
+                    arrayBigger.push(input[i]);
+                }
+            }
+
+            return [...quickSort(arraySmaller), pivot, ...quickSort(arrayBigger)];
+        }
+
+        function ordenarNumeros() {
+            const inputElement = document.getElementById("inputNumbers");
+            const inputText = inputElement.value.trim();
+            const numeros = inputText.split(",").map(Number);
+
+            const numerosOrdenados = quickSort(numeros);
+
+            const resultadoElement = document.getElementById("resultado");
+            resultadoElement.textContent = "Números ordenados: " + numerosOrdenados.join(", ");
+        }
+    </script>
+</body>
+</html>

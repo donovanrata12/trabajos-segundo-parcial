@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algoritmo de Dijkstra</title>
+</head>
+<body>
+    <h1>Algoritmo de Dijkstra</h1>
+    <p>Ingresa una lista de números separados por comas:</p>
+    <input type="text" id="inputNumbers">
+    <button onclick="calcularRutaMasCorta()">Calcular</button>
+    <p id="resultado"></p>
+
+    <script>
+        function dijkstra(graph, startNode) {
+            const distances = {};
+            const visited = new Set();
+            const queue = [startNode];
+
+            distances[startNode] = 0;
+
+            while (queue.length > 0) {
+                const currentNode = queue.shift();
+                visited.add(currentNode);
+
+                for (const neighbor in graph[currentNode]) {
+                    if (!visited.has(neighbor)) {
+                        const distance = distances[currentNode] + graph[currentNode][neighbor];
+                        if (!distances[neighbor] || distance < distances[neighbor]) {
+                            distances[neighbor] = distance;
+                            queue.push(neighbor);
+                        }
+                    }
+                }
+            }
+
+            return distances;
+        }
+
+        function calcularRutaMasCorta() {
+            const inputElement = document.getElementById("inputNumbers");
+            const inputText = inputElement.value.trim();
+            const graph = parseInput(inputText);
+
+            const startNode = "A"; // Cambia este valor al nodo de origen deseado
+
+            const distances = dijkstra(graph, startNode);
+
+            const resultadoElement = document.getElementById("resultado");
+            resultadoElement.textContent = "Distancias mínimas desde el nodo " + startNode + ": " + JSON.stringify(distances);
+        }
+
+        function parseInput(inputText) {
+            // Parsea la entrada y crea el grafo ponderado
+            // Ejemplo: "A-B:5,B-C:3,A-C:2" se convierte en { A: { B: 5, C: 2 }, B: { C: 3 } }
+            const graph = {};
+            const edges = inputText.split(",");
+            for (const edge of edges) {
+                const [from, to, weight] = edge.split(":");
+                if (!graph[from]) graph[from] = {};
+                graph[from][to] = parseInt(weight);
+            }
+            return graph;
+        }
+    </script>
+</body>
+</html>
